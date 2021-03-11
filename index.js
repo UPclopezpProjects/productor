@@ -3,7 +3,9 @@
 var mongoose = require('mongoose');
 var app = require('./app');
 var port = process.env.PORT || 3005;
-var mongoDB = 'mongodb://172.17.0.1:27017/productors';
+//var mongoDB = 'mongodb://172.17.0.1:27017/productors';
+var mongoDB = 'mongodb://host.docker.internal:27017/productors';
+
 
 
 mongoose.connect(mongoDB, {useFindAndModify: false, useUnifiedTopology: true, useNewUrlParser: true}, (err, res) => {
