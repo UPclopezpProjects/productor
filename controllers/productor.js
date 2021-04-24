@@ -3,24 +3,17 @@ var axios = require('axios');
 var Productor = require('../models/Productors');
 
 function dataTransaction(req, res){
-  //console.log(req.body);
-  //console.log(req.file);
-	/*serviceInit(req, function(data, err) {
-        if (err) {
-            res.status(500).send({ message: 'Error en la petición' });
-        }else {
-        	var res = data;
-        }
-    });*/
     var productor = new Productor();
-    productor.map = req.body.map
-    productor.id = req.body.id;
-    productor.fId = req.body.fId;
-    productor.date = req.body.date;
-    productor.image = req.file.filename;
+    productor.fid = req.body.fid;
+    productor.ubication = req.body.ubication;
+    productor.name = req.body.name;
+    productor.harvestDate = req.body.harvestDate;
+    productor.caducationDate = req.body.caducationDate;
+    productor.previousStage = req.body.previousStage;
+    productor.currentStage = req.body.currentStage;
     productor.description = req.body.description;
-    productor.type = req.body.type;
-    productor.permitions = req.body.permitions;
+    productor.image = req.body.image;
+    productor.documentation = req.body.documentation;
     productor.save((err, productorStored) => {
       if(err) {
         res.status(500).send({ message: 'Error al guardar los datos' });
@@ -28,31 +21,23 @@ function dataTransaction(req, res){
         if(!productorStored) {
           res.status(404).send({ message: 'El dato no ha sido guardado' });
         }else{
-          res.status(200).send({ message: true });
+          serviceInit(productorStored, function(data, err) {
+            res.status(200).send({ message: data.message, addData: data.addData });
+          });
         }
       }
     });
 }
 
-function serviceInit(req, next) {
-    var map = req.body.map; //Latitud y longitud de dos puntos (origen y destino)
-    var id = req.body.id;
-    var fId = req.body.fId;
-    var date = req.body.date;
-    var image = req.body.image;
-    var description = req.body.description;
-    var type = req.body.type;
-    var permitions = req.body.permitions;
-    var url = 'http://'+host+':'+port.audit+''+path.audit+'';
+function serviceInit(productorStored, next) {
+    var url = 'http://'+host+':'+port.traceability+''+path.traceability+'';
     axios.post(url, {
-        map: map,
-        id: id,
-        fId: fId,
-        date: date,
-        image: image,
-        description: description,
-        type: type,
-        permitions: permitions
+      id: productorStored._id,
+      fid: productorStored.fid,
+      ubication: productorStored.ubication,
+      name: productorStored.name,
+      previousStage: productorStored.previousStage,
+      currentStage: productorStored.currentStage
     })
     .then(response => {
         //console.log(response.data);
