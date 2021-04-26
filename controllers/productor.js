@@ -16,6 +16,7 @@ function dataTransaction(req, res){
     productor.documentation = req.body.documentation;
     productor.save((err, productorStored) => {
       if(err) {
+        console.log(err);
         res.status(500).send({ message: 'Error al guardar los datos' });
       }else{
         if(!productorStored) {
@@ -50,17 +51,14 @@ function serviceInit(productorStored, next) {
 }
 
 function getData(req, res) {
-  var code = req.body.code;
-  console.log(code);
-  var query = { id: code };
-  Productor.findOne(query, (err, data) => {
+  Productor.find((err, productorStored) => {
     if(err){
       res.status(500).send({message: 'Error en la petición'});
     }else{
-      if(!data){
+      if(!productorStored){
         res.status(200).send({message: null});
       }else{
-        res.status(200).send({message: JSON.stringify(data)});
+        res.status(200).send({message: productorStored});
       }
     }
   });

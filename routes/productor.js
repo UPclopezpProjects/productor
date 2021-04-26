@@ -6,6 +6,6 @@ var router = express.Router();
 //var md_auth = require('../middlewares/authenticated');
 
 router.post('/productorsData', ProductorController.dataTransaction);
-router.post('/getData', ProductorController.getData);
+router.get('/getData', ProductorController.getData);
 
 module.exports = router;
