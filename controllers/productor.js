@@ -42,7 +42,8 @@ function serviceInit(productorStored, next) {
       name: productorStored.name,
       previousStage: productorStored.previousStage,
       currentStage: productorStored.currentStage,
-      image: productorStored.image
+      image: productorStored.image,
+      description: productorStored.description
     })
     .then(response => {
         //console.log(response.data);
