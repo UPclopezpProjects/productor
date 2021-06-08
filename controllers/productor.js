@@ -18,7 +18,7 @@ function dataTransaction(req, res){
   productor.nameOfCompany = req.body.nameOfCompany;
   productor.save((err, productorStored) => {
     if(err) {
-      console.log(err);
+      //console.log(err);
       res.status(500).send({ message: 'Error al guardar los datos' });
     }else{
       if(!productorStored) {
