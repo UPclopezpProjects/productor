@@ -6,6 +6,7 @@ var User = require('../models/Users');
 function dataTransaction(req, res){
   var productor = new Productor();
   productor.fid = req.body.fid;
+  productor.code = req.body.code;
   productor.ubication = req.body.ubication;
   productor.name = req.body.name;
   productor.harvestDate = req.body.harvestDate;
@@ -38,6 +39,7 @@ function serviceInit(productorStored, next) {
     axios.post(url, {
       id: productorStored._id,
       fid: productorStored.fid,
+      code: productorStored.code,
       ubication: productorStored.ubication,
       name: productorStored.name,
       previousStage: productorStored.previousStage,
