@@ -9,5 +9,6 @@ router.post('/productorsData', ProductorController.dataTransaction);
 router.post('/dataOfCompany', ProductorController.dataOfCompany);
 router.get('/getData', ProductorController.getData);
 router.post('/getCompany', ProductorController.getCompany);
+router.get('/getHistory', ProductorController.getHistory);
 
 module.exports = router;
